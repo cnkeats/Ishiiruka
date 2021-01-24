@@ -1970,49 +1970,6 @@ void CEXISlippi::prepareOnlineMatchState()
 			return;
 		}
 
-		// Mango Axe
-		if (lastSearch.mode == directMode)
-		{
-			// Set game timer to 2 minutes
-			u32 *timer = (u32 *)&onlineMatchBlock[0x10];
-			*timer = Common::swap32(120);
-			// Item spawn behavior (-1 = off, 0 = very low, 1 = low, 2 = medium, 3 = high, 4 = very high)
-			onlineMatchBlock[0x0B] = 0x03;
-			// Item spawn bitfield 1
-			onlineMatchBlock[0x23] = 0xFD;
-			// Item spawn bitfield 2
-			onlineMatchBlock[0x24] = 0xFF;
-			// Item spawn bitfield 3
-			onlineMatchBlock[0x25] = 0xFB;
-			// Item spawn bitfield 4
-			onlineMatchBlock[0x26] = 0x78;
-			// Item spawn bitfield 5
-			onlineMatchBlock[0x27] = 0xFF;
-			// Set player 1 stocks
-			onlineMatchBlock[0x62 + 0x24 * 0] = 0x2;
-			// Set player 2 stocks
-			onlineMatchBlock[0x62 + 0x24 * 1] = 0x2;
-			// Set player 3 stocks
-			onlineMatchBlock[0x62 + 0x24 * 2] = 0x2;
-			// Set player 4 stocks
-			onlineMatchBlock[0x62 + 0x24 * 3] = 0x2;
-		}
-		else
-		{
-			u32 *timer = (u32 *)&onlineMatchBlock[0x10];
-			*timer = Common::swap32(480);
-			onlineMatchBlock[0x0B] = 0xFF;
-			onlineMatchBlock[0x23] = 0xFF;
-			onlineMatchBlock[0x24] = 0xFF;
-			onlineMatchBlock[0x25] = 0xFF;
-			onlineMatchBlock[0x26] = 0xFF;
-			onlineMatchBlock[0x27] = 0xFF;
-			onlineMatchBlock[0x62 + 0x24 * 0] = 0x4;
-			onlineMatchBlock[0x62 + 0x24 * 1] = 0x4;
-			onlineMatchBlock[0x62 + 0x24 * 2] = 0x4;
-			onlineMatchBlock[0x62 + 0x24 * 3] = 0x4;
-		}
-
 		// Overwrite local player character
 		onlineMatchBlock[0x60 + localPlayerIndex * 0x24] = lps.characterId;
 		onlineMatchBlock[0x63 + localPlayerIndex * 0x24] = lps.characterColor;
@@ -2083,6 +2040,49 @@ void CEXISlippi::prepareOnlineMatchState()
 
 	// Add the match struct block to output
 	m_read_queue.insert(m_read_queue.end(), onlineMatchBlock.begin(), onlineMatchBlock.end());
+
+	// Mango Axe
+	if (lastSearch.mode == directMode)
+	{
+		// Set game timer to 2 minutes
+		u32 *timer = (u32 *)&onlineMatchBlock[0x10];
+		*timer = Common::swap32(120);
+		// Item spawn behavior (-1 = off, 0 = very low, 1 = low, 2 = medium, 3 = high, 4 = very high)
+		onlineMatchBlock[0x0B] = 0x03;
+		// Item spawn bitfield 1
+		onlineMatchBlock[0x23] = 0xFD;
+		// Item spawn bitfield 2
+		onlineMatchBlock[0x24] = 0xFF;
+		// Item spawn bitfield 3
+		onlineMatchBlock[0x25] = 0xFB;
+		// Item spawn bitfield 4
+		onlineMatchBlock[0x26] = 0x78;
+		// Item spawn bitfield 5
+		onlineMatchBlock[0x27] = 0xFF;
+		// Set player 1 stocks
+		onlineMatchBlock[0x62 + 0x24 * 0] = 0x2;
+		// Set player 2 stocks
+		onlineMatchBlock[0x62 + 0x24 * 1] = 0x2;
+		// Set player 3 stocks
+		onlineMatchBlock[0x62 + 0x24 * 2] = 0x2;
+		// Set player 4 stocks
+		onlineMatchBlock[0x62 + 0x24 * 3] = 0x2;
+	}
+	else
+	{
+		u32 *timer = (u32 *)&onlineMatchBlock[0x10];
+		*timer = Common::swap32(480);
+		onlineMatchBlock[0x0B] = 0xFF;
+		onlineMatchBlock[0x23] = 0xFF;
+		onlineMatchBlock[0x24] = 0xFF;
+		onlineMatchBlock[0x25] = 0xFF;
+		onlineMatchBlock[0x26] = 0xFF;
+		onlineMatchBlock[0x27] = 0xFF;
+		onlineMatchBlock[0x62 + 0x24 * 0] = 0x4;
+		onlineMatchBlock[0x62 + 0x24 * 1] = 0x4;
+		onlineMatchBlock[0x62 + 0x24 * 2] = 0x4;
+		onlineMatchBlock[0x62 + 0x24 * 3] = 0x4;
+	}
 }
 
 u16 CEXISlippi::getRandomStage()
