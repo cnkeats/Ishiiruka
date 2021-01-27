@@ -2058,7 +2058,7 @@ void CEXISlippi::prepareOnlineMatchState()
 		// Item spawn bitfield 4
 		onlineMatchBlock[0x26] = 0x78;
 		// Item spawn bitfield 5
-		onlineMatchBlock[0x27] = 0xFF;
+		onlineMatchBlock[0x27] = 0xF7;
 		// Set player 1 stocks
 		onlineMatchBlock[0x62 + 0x24 * 0] = 0x2;
 		// Set player 2 stocks
