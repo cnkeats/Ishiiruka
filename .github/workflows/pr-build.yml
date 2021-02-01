@@ -179,6 +179,7 @@ jobs:
         if: success()
         working-directory: ${{ github.workspace }}
         run: |
+          chmod +x ./build-appimage.sh
           ./build-appimage.sh ${{ matrix.build_config }}
       - name: "Package"
         if: success()
@@ -266,10 +267,8 @@ jobs:
           CERTIFICATE_MACOS_PASSWORD: ${{ secrets.CERTIFICATE_MACOS_PASSWORD }}
         run: |
           chmod +x Tools/load-macos-certs-ci.sh && ./Tools/load-macos-certs-ci.sh
-
           mkdir -p ~/private_keys/
           echo '${{ secrets.APPLE_CONNECT_API_KEY }}' > ~/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_ID }}.p8
-
           /usr/bin/codesign -f -s "${{ secrets.APPLE_IDENTITY_HASH }}" --deep --options runtime --entitlements Source/Core/DolphinWX/Entitlements.plist ./build/Binaries/Slippi\ Dolphin.app
       - name: "Package, Sign and Notarize Netplay Release DMG"
         if: success() && matrix.build_type == 'Netplay' && env.CERTIFICATE_MACOS_APPLICATION != null
@@ -296,7 +295,6 @@ jobs:
             "${{ env.FILE_NAME }}.dmg" \
             "./build/Binaries/"
           mv "${{ env.FILE_NAME }}.dmg" artifact/
-
           /usr/bin/codesign -f -s "${{ secrets.APPLE_IDENTITY_HASH }}" --deep --options runtime ./artifact/${{ env.FILE_NAME }}.dmg
           chmod +x Tools/notarize_netplay.sh && ./Tools/notarize_netplay.sh ./artifact/${{ env.FILE_NAME }}.dmg
       - name: "Package ${{ matrix.build_type }}"
