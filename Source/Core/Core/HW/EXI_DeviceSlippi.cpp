@@ -2223,9 +2223,12 @@ void CEXISlippi::prepareOnlineMatchState()
 	// Mango Axe
 	if (lastSearch.mode == directMode)
 	{
+		// stops you from using X or Y to jump
+		//onlineMatchBlock[0x02] = 0x10;
+		onlineMatchBlock[0x0B] = onlineMatchBlock[0x0B] | 0x20;
 		// Set game timer to 2 minutes
 		u32 *timer = (u32 *)&onlineMatchBlock[0x10];
-		*timer = Common::swap32(120);
+		*timer = Common::swap32(30);
 		// Item spawn behavior (-1 = off, 0 = very low, 1 = low, 2 = medium, 3 = high, 4 = very high)
 		onlineMatchBlock[0x0B] = 0x03;
 		// Item spawn bitfield 1
