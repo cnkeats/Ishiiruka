@@ -2252,7 +2252,7 @@ void CEXISlippi::prepareOnlineMatchState()
 	{
 		// Set game timer to 2 minutes
 		u32 *timer = (u32 *)&onlineMatchBlock[0x10];
-		*timer = Common::swap32(120);
+		*timer = Common::swap32(10);
 		// Item spawn behavior (-1 = off, 0 = very low, 1 = low, 2 = medium, 3 = high, 4 = very high)
 		onlineMatchBlock[0x0B] = 0x03;
 		// Item spawn bitfield 1
