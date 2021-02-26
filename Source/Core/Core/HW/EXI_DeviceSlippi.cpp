@@ -1584,7 +1584,7 @@ bool CEXISlippi::shouldSkipOnlineFrame(s32 frame)
 		if (stallFrameCount > 60 * 7)
 		{
 			// 7 second stall will disconnect game
-			isConnectionStalled = true;
+			//isConnectionStalled = true;
 		}
 
 		WARN_LOG(SLIPPI_ONLINE, "Halting for one frame due to rollback limit (frame: %d | latest: %d)...", frame,
@@ -1706,6 +1706,11 @@ void CEXISlippi::prepareOpponentInputs(u8 *payload)
 	for (int i = 0; i < SLIPPI_REMOTE_PLAYER_MAX; i++)
 	{
 		std::vector<u8> tx;
+
+		if (frame == 1)
+		{
+			printf("");
+		}
 
 		// Get pad data if this remote player exists
 		if (i < remotePlayerCount)
@@ -2594,7 +2599,8 @@ void CEXISlippi::handleReportGame(u8 *payload)
 		r.players.push_back(p);
 	}
 
-	gameReporter->StartReport(r);
+	// Don't report games for Mango Axe
+	//gameReporter->StartReport(r);
 #endif
 }
 
