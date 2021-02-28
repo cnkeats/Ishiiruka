@@ -2346,12 +2346,6 @@ void CEXISlippi::setMatchSelections(u8 *payload)
 
 	s.rngOffset = generator() % 0xFFFF;
 
-	if (matchmaking->LocalPlayerIndex() == 1 && firstMatch)
-	{
-		firstMatch = false;
-		s.stageId = getRandomStage();
-	}
-
 	// Merge these selections
 	localSelections.Merge(s);
 
@@ -2550,7 +2544,6 @@ void CEXISlippi::handleConnectionCleanup()
 
 	// Clear character selections
 	localSelections.Reset();
-	firstMatch = true;
 
 	// Reset random stage pool
 	stagePool.clear();
