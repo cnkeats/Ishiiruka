@@ -2257,7 +2257,7 @@ void CEXISlippi::prepareOnlineMatchState()
 	{
 		// Set game timer to 2 minutes
 		u32 *timer = (u32 *)&onlineMatchBlock[0x10];
-		*timer = Common::swap32(10);
+		*timer = Common::swap32(5);
 		// Item spawn behavior (-1 = off, 0 = very low, 1 = low, 2 = medium, 3 = high, 4 = very high)
 		onlineMatchBlock[0x0B] = 0x03;
 		// Item spawn bitfield 1
@@ -2572,6 +2572,9 @@ void CEXISlippi::prepareNewSeed()
 
 void CEXISlippi::handleReportGame(u8 *payload)
 {
+	ERROR_LOG(SLIPPI_ONLINE, "CLEARING!");
+	prepareOnlineMatchState();
+	ERROR_LOG(SLIPPI_ONLINE, "CLEARED!");
 #ifndef LOCAL_TESTING
 	SlippiGameReporter::GameReport r;
 	r.durationFrames = Common::swap32(&payload[0]);
